@@ -174,7 +174,7 @@ class List extends React.Component<any, any> {
     }
 
     lookCountryAndSeed() {
-        if (this.state.country && this.state.seed) {
+        if (this.state.country) {
             this.getTenUsers();
         }
     }
