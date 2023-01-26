@@ -1,0 +1,19 @@
+.container-me {
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+}
+
+.container-navbar {
+    padding: 10px;
+}
+
+.seed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn {
+    margin-left: 5px;
+}
