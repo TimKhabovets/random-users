@@ -4,6 +4,7 @@ class Store {
     static seed: number;
     static lengths : number;
     static users : any;
+    static newUsers: any;
     static alphabet = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()_-+=~`/|"№;:?><,.';
 }
 

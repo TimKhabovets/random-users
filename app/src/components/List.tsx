@@ -16,13 +16,33 @@ class List extends React.Component<any, any> {
         Store.lengths = 20;
         this.selectCountry = this.selectCountry.bind(this);
     }
+    componentDidMount() {
+        window.addEventListener("scroll", this.onScroll, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.onScroll, false);
+    }
+
+    onScroll = () => {
+        if (this.hasReachedBottom()) {
+            Store.lengths = Store.lengths + 10;
+            this.getTenUsers();
+        }
+    };
+
+    hasReachedBottom() {
+        return (
+            (window.scrollY + 1 >= document.documentElement.scrollHeight - document.documentElement.clientHeight)
+        );
+    }
 
     getSelect = (e: any) => {
         this.setState({
             country: e.target.value
         });
         Store.country = e.target.value;
-
+        Store.lengths = 20;
         this.lookCountryAndSeed();
     }
 
@@ -31,7 +51,7 @@ class List extends React.Component<any, any> {
             mistakes: e.target.value
         });
         Store.mistakes = e.target.value;
-
+        Store.lengths = 20;
         this.lookCountryAndSeed();
     }
 
@@ -40,7 +60,7 @@ class List extends React.Component<any, any> {
             seed: e.target.value
         });
         Store.seed = e.target.value;
-
+        Store.lengths = 20;
         this.lookCountryAndSeed();
     }
 
@@ -50,7 +70,7 @@ class List extends React.Component<any, any> {
             seed: seed
         });
         Store.seed = seed;
-
+        Store.lengths = 20;
         this.lookCountryAndSeed();
     }
 
@@ -62,9 +82,9 @@ class List extends React.Component<any, any> {
             number: faker.phone.number('+33-##-##-##-##-##')
         };
         for (let index = 0; index < Store.mistakes; index++) {
-           user = this.selectMethod(user)
+            user = this.selectMethod(user)
         }
-        
+
         return user;
     }
 
@@ -88,21 +108,21 @@ class List extends React.Component<any, any> {
 
     changeLetter(user: any) {
         let fields = Math.floor(Math.random() * 4);
-        if (fields == 0) { 
+        if (fields == 0) {
             let position = this.selectPosition(user.id);
-            user.id = (user.id.substr(0, position )?user.id.substr(0, position ):'') + (user.id[position + 1]?user.id[position + 1]:'') + user.id[position] + (user.id.substr(position + 2, user.id.length)?user.id.substr(position + 2, user.id.length):''); 
+            user.id = (user.id.substr(0, position) ? user.id.substr(0, position) : '') + (user.id[position + 1] ? user.id[position + 1] : '') + user.id[position] + (user.id.substr(position + 2, user.id.length) ? user.id.substr(position + 2, user.id.length) : '');
         }
-        if (fields == 1) { 
+        if (fields == 1) {
             let position = this.selectPosition(user.name);
-            user.name = (user.name.substr(0, position )?user.name.substr(0, position ):'') + (user.name[position + 1]?user.name[position + 1]:'') + user.name[position] + (user.name.substr(position + 2, user.name.length)?user.name.substr(position + 2, user.name.length):''); 
+            user.name = (user.name.substr(0, position) ? user.name.substr(0, position) : '') + (user.name[position + 1] ? user.name[position + 1] : '') + user.name[position] + (user.name.substr(position + 2, user.name.length) ? user.name.substr(position + 2, user.name.length) : '');
         }
-        if (fields == 2) { 
+        if (fields == 2) {
             let position = this.selectPosition(user.address);
-            user.address = (user.address.substr(0, position )?user.address.substr(0, position ):'') + (user.address[position + 1]?user.address[position + 1]:'') + user.address[position] + (user.address.substr(position + 2, user.address.length)?user.address.substr(position + 2, user.address.length):''); 
+            user.address = (user.address.substr(0, position) ? user.address.substr(0, position) : '') + (user.address[position + 1] ? user.address[position + 1] : '') + user.address[position] + (user.address.substr(position + 2, user.address.length) ? user.address.substr(position + 2, user.address.length) : '');
         }
-        if (fields == 3) { 
+        if (fields == 3) {
             let position = this.selectPosition(user.number);
-            user.number = (user.number.substr(0, position )?user.number.substr(0, position ):'') + (user.number[position + 1]?user.number[position + 1]:'') + user.number[position] + (user.number.substr(position + 2, user.number.length)?user.number.substr(position + 2, user.number.length):''); 
+            user.number = (user.number.substr(0, position) ? user.number.substr(0, position) : '') + (user.number[position + 1] ? user.number[position + 1] : '') + user.number[position] + (user.number.substr(position + 2, user.number.length) ? user.number.substr(position + 2, user.number.length) : '');
         }
 
         return user;
@@ -110,21 +130,21 @@ class List extends React.Component<any, any> {
 
     deleteLetter(user: any) {
         let fields = Math.floor(Math.random() * 4);
-        if (fields == 0) { 
+        if (fields == 0) {
             let position = this.selectPosition(user.id);
-            user.id = user.id.substr(0, position ) + (user.id.substr(position + 1, user.id.length)?user.id.substr(position + 1, user.id.length):''); 
+            user.id = user.id.substr(0, position) + (user.id.substr(position + 1, user.id.length) ? user.id.substr(position + 1, user.id.length) : '');
         }
-        if (fields == 1) { 
+        if (fields == 1) {
             let position = this.selectPosition(user.name);
-            user.name = user.name.substr(0, position) + (user.name.substr(position + 1, user.name.length)?user.name.substr(position + 1, user.name.length):''); 
+            user.name = user.name.substr(0, position) + (user.name.substr(position + 1, user.name.length) ? user.name.substr(position + 1, user.name.length) : '');
         }
-        if (fields == 2) { 
+        if (fields == 2) {
             let position = this.selectPosition(user.address);
-            user.address = user.address.substr(0, position) + (user.address.substr(position + 1, user.address.length)?user.address.substr(position + 1, user.address.length):''); 
+            user.address = user.address.substr(0, position) + (user.address.substr(position + 1, user.address.length) ? user.address.substr(position + 1, user.address.length) : '');
         }
-        if (fields == 3) { 
+        if (fields == 3) {
             let position = this.selectPosition(user.number);
-            user.number = user.number.substr(0, position ) + (user.number.substr(position + 1, user.number.length)?user.number.substr(position + 1, user.number.length):''); 
+            user.number = user.number.substr(0, position) + (user.number.substr(position + 1, user.number.length) ? user.number.substr(position + 1, user.number.length) : '');
         }
 
         return user;
@@ -134,21 +154,21 @@ class List extends React.Component<any, any> {
         let randomIndex = Math.floor(Math.random() * Store.alphabet.length);
         let randomLetter = Store.alphabet[randomIndex];
         let fields = Math.floor(Math.random() * 4);
-        if (fields == 0) { 
+        if (fields == 0) {
             let position = this.selectPosition(user.id);
-            user.id = user.id.substr(0, position) + randomLetter + user.id.substr(position, user.id.length); 
+            user.id = user.id.substr(0, position) + randomLetter + user.id.substr(position, user.id.length);
         }
-        if (fields == 1) { 
+        if (fields == 1) {
             let position = this.selectPosition(user.name);
-            user.name = user.name.substr(0, position) + randomLetter + user.name.substr(position, user.name.length); 
+            user.name = user.name.substr(0, position) + randomLetter + user.name.substr(position, user.name.length);
         }
-        if (fields == 2) { 
+        if (fields == 2) {
             let position = this.selectPosition(user.address);
-            user.address = user.address.substr(0, position) + randomLetter + user.address.substr(position, user.address.length); 
+            user.address = user.address.substr(0, position) + randomLetter + user.address.substr(position, user.address.length);
         }
-        if (fields == 3) { 
+        if (fields == 3) {
             let position = this.selectPosition(user.number);
-            user.number = user.number.substr(0, position) + randomLetter + user.number.substr(position, user.number.length); 
+            user.number = user.number.substr(0, position) + randomLetter + user.number.substr(position, user.number.length);
         }
         return user;
     }
@@ -167,8 +187,12 @@ class List extends React.Component<any, any> {
 
     getTenUsers() {
         Store.users = [];
+        var div = document.getElementById('users');
+        while (div?.firstChild) {
+            div.removeChild(div.firstChild);
+        }
         this.selectCountry();
-        Store.lengths = Store.lengths + 10;
+        this.addUsers();
     }
 
     createRandomFrenchUser() {
@@ -214,6 +238,22 @@ class List extends React.Component<any, any> {
         }
     }
 
+    addUsers() {
+        const users = document.getElementById('users');
+        for (let i = 0; i < Store.users.length; i++) {
+            let user = Store.users[i];
+            users?.insertAdjacentHTML('beforeend',
+                `<hr />
+                    <div className="user">
+                        <h4>${i+1}</h4>
+                        <h5>${user.id}</h5>
+                        <h5>${user.name}</h5>
+                        <h5>${user.address}</h5>
+                        <h5>${user.number}</h5>
+                    </div>`
+            );
+        }
+    };
 
     render() {
 
@@ -248,26 +288,10 @@ class List extends React.Component<any, any> {
         return (
             <div className="container-me bg-secondary-subtle">
                 {navBar()}
-                {Store.users.map((user: any, index: number) => (
-                    <>
-                        <hr />
-                        <div className="user">
-                            <h4>{index + 1}</h4>
-                            <h5>{user.id}</h5>
-                            <h5>{user.name}</h5>
-                            <h5>{user.address}</h5>
-                            <h5>{user.number}</h5>
-                        </div>
-                    </>
-                ))}
+                <div id="users"></div>
             </div>
         );
     }
 }
-
-// var scrollHeight = document.documentElement.scrollHeight;
-// var clientHeight = document.documentElement.clientHeight;
-// var height = scrollHeight + clientHeight;
-// var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 
 export default List;
