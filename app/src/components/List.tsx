@@ -33,7 +33,7 @@ class List extends React.Component<any, any> {
 
     hasReachedBottom() {
         return (
-            (window.scrollY + 1 >= document.documentElement.scrollHeight - document.documentElement.clientHeight)
+            (window.scrollY + 2 >= document.documentElement.scrollHeight - document.documentElement.clientHeight)
         );
     }
 
