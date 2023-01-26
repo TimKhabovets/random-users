@@ -10,7 +10,7 @@ class List extends React.Component<any, any> {
         this.state = {
             country: '',
             mistakes: 0,
-            seed: 0,
+            seed: undefined,
         };
         Store.users = [];
         Store.lengths = 20;

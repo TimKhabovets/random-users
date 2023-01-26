@@ -1,7 +1,7 @@
 class Store {
     static country: any;
     static mistakes: any;
-    static seed: number;
+    static seed: any;
     static lengths : number;
     static users : any;
     static newUsers: any;
