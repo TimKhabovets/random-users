@@ -243,14 +243,13 @@ class List extends React.Component<any, any> {
         for (let i = 0; i < Store.users.length; i++) {
             let user = Store.users[i];
             users?.insertAdjacentHTML('beforeend',
-                `<hr />
-                    <div className="user">
-                        <h4>${i+1}</h4>
-                        <h5>${user.id}</h5>
-                        <h5>${user.name}</h5>
-                        <h5>${user.address}</h5>
-                        <h5>${user.number}</h5>
-                    </div>`
+                `<tr>
+                    <td>${i+1}</td>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.address}</td>
+                    <td>${user.number}</td>
+                </tr>`
             );
         }
     };
@@ -258,7 +257,8 @@ class List extends React.Component<any, any> {
     render() {
 
         const navBar = () => (
-            <div className="container-navbar bg-secondary">
+            <div className="bg-secondary">
+                <div className="container-navbar">
 
                 <select className="form-select" onChange={this.getSelect}>
                     <option value="French">French</option>
@@ -282,13 +282,27 @@ class List extends React.Component<any, any> {
 
                     <button onClick={this.getRandom} type="button" className="btn btn-outline-dark">random</button>
                 </div>
+                </div>
             </div>
         );
 
         return (
             <div className="container-me bg-secondary-subtle">
                 {navBar()}
-                <div id="users"></div>
+                <table className='table is-stripes is-fullwidth'>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users">
+                                
+                        </tbody>
+                    </table>
             </div>
         );
     }
